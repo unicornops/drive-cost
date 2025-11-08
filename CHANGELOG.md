@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.4.0 - 2025-11-08
+#### Features
+- Improve mobile responsiveness and spacing for all layouts - (1e97078) - Rob Lazzurs
+
+- - -
+
 ## v0.3.0 - 2025-11-08
 #### Features
 - Add project name to Cloudflare deploy command - (e6c9090) - Rob Lazzurs
