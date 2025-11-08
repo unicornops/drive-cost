@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import Footer from "./components/Footer.vue";
 
 // Diesel/Petrol inputs
@@ -134,6 +134,112 @@ const savingsPercentage = computed(() => {
     return (savings.value / dieselCost.value) * 100;
   }
   return null;
+});
+
+// URL sharing functionality
+const shareUrl = ref("");
+const showCopiedMessage = ref(false);
+let updateUrlTimeout = null;
+
+// Update URL with current state
+const updateUrl = () => {
+  const params = new URLSearchParams();
+
+  if (distance.value) params.set("distance", distance.value);
+  if (distanceUnit.value) params.set("distanceUnit", distanceUnit.value);
+  if (mpg.value) params.set("mpg", mpg.value);
+  if (costPerLitre.value) params.set("costPerLitre", costPerLitre.value);
+  if (kwhPer100km.value) params.set("kwhPer100km", kwhPer100km.value);
+  if (costPerKwh.value) params.set("costPerKwh", costPerKwh.value);
+  if (gallonType.value) params.set("gallonType", gallonType.value);
+  if (fuelMetricType.value) params.set("fuelMetricType", fuelMetricType.value);
+  if (electricMetricType.value)
+    params.set("electricMetricType", electricMetricType.value);
+
+  const queryString = params.toString();
+  const newUrl = queryString
+    ? `${window.location.pathname}?${queryString}`
+    : window.location.pathname;
+
+  // Update browser URL without reload
+  window.history.replaceState({}, "", newUrl);
+  shareUrl.value = window.location.href;
+};
+
+// Debounced version of updateUrl
+const debouncedUpdateUrl = () => {
+  if (updateUrlTimeout) {
+    clearTimeout(updateUrlTimeout);
+  }
+  updateUrlTimeout = setTimeout(() => {
+    updateUrl();
+  }, 500); // Wait 500ms after last keystroke
+};
+
+// Load values from URL on mount
+const loadFromUrl = () => {
+  const params = new URLSearchParams(window.location.search);
+
+  // Parse numeric values
+  if (params.has("distance")) {
+    const value = parseFloat(params.get("distance"));
+    if (!isNaN(value)) distance.value = value.toString();
+  }
+  if (params.has("mpg")) {
+    const value = parseFloat(params.get("mpg"));
+    if (!isNaN(value)) mpg.value = value.toString();
+  }
+  if (params.has("costPerLitre")) {
+    const value = parseFloat(params.get("costPerLitre"));
+    if (!isNaN(value)) costPerLitre.value = value.toString();
+  }
+  if (params.has("kwhPer100km")) {
+    const value = parseFloat(params.get("kwhPer100km"));
+    if (!isNaN(value)) kwhPer100km.value = value.toString();
+  }
+  if (params.has("costPerKwh")) {
+    const value = parseFloat(params.get("costPerKwh"));
+    if (!isNaN(value)) costPerKwh.value = value.toString();
+  }
+
+  // String values don't need parsing
+  if (params.has("distanceUnit"))
+    distanceUnit.value = params.get("distanceUnit");
+  if (params.has("gallonType")) gallonType.value = params.get("gallonType");
+  if (params.has("fuelMetricType"))
+    fuelMetricType.value = params.get("fuelMetricType");
+  if (params.has("electricMetricType"))
+    electricMetricType.value = params.get("electricMetricType");
+
+  shareUrl.value = window.location.href;
+};
+
+// Copy share URL to clipboard
+const copyShareUrl = async () => {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value);
+    showCopiedMessage.value = true;
+    setTimeout(() => {
+      showCopiedMessage.value = false;
+    }, 2000);
+  } catch (err) {
+    console.error("Failed to copy:", err);
+  }
+};
+
+// Watch all inputs and update URL (debounced for text inputs, immediate for dropdowns)
+watch([distance, mpg, costPerLitre, kwhPer100km, costPerKwh], () => {
+  debouncedUpdateUrl();
+});
+
+// For dropdown/toggle changes, update immediately
+watch([distanceUnit, gallonType, fuelMetricType, electricMetricType], () => {
+  updateUrl();
+});
+
+// Load from URL on mount
+onMounted(() => {
+  loadFromUrl();
 });
 </script>
 
@@ -507,7 +613,7 @@ const savingsPercentage = computed(() => {
         <!-- Comparison Display -->
         <div
           v-if="dieselCost !== null && electricCost !== null"
-          class="relative group"
+          class="relative group mb-6 sm:mb-8"
         >
           <div
             class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity"
@@ -572,6 +678,48 @@ const savingsPercentage = computed(() => {
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Share Button -->
+        <div class="text-center">
+          <button
+            @click="copyShareUrl"
+            class="relative inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all transform hover:scale-105 active:scale-95 uppercase tracking-wider"
+          >
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+              ></path>
+            </svg>
+            <span v-if="!showCopiedMessage">Share Results</span>
+            <span v-else class="flex items-center">
+              <svg
+                class="w-5 h-5 sm:w-6 sm:h-6 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              Link Copied!
+            </span>
+          </button>
+          <p class="text-xs sm:text-sm text-gray-400 mt-3 sm:mt-4">
+            Click to copy a shareable link with your current settings
+          </p>
         </div>
       </div>
     </div>
