@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.3.0 - 2025-11-08
+#### Features
+- Add project name to Cloudflare deploy command - (e6c9090) - Rob Lazzurs
+- Add cloudflare-deploy target to Makefile - (75e0f70) - Rob Lazzurs
+#### Bug Fixes
+- Replace horizontal rules in changelog with dashes - (b3a5678) - Rob Lazzurs
+#### Continuous Integration
+- Remove Cloudflare deploy target from Makefile - (1d50877) - Rob Lazzurs
+#### Chores
+- Add Dependabot config for npm and GitHub Actions - (47366d1) - Rob Lazzurs
+- Adding pre-commit config. - (092acde) - Rob Lazzurs
+
+- - -
+
 
 ## v0.2.0 - 2025-11-08
 
