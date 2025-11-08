@@ -139,7 +139,7 @@ const savingsPercentage = computed(() => {
 // URL sharing functionality
 const shareUrl = ref("");
 const showCopiedMessage = ref(false);
-let updateUrlTimeout = null;
+const updateUrlTimeout = ref(null);
 
 // Update URL with current state
 const updateUrl = () => {
