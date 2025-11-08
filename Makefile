@@ -14,7 +14,7 @@ SHELL := /bin/sh
 NPM ?= npm
 NODE ?= node
 
-.PHONY: help install dev build preview clean serve cloudflare-deploy
+.PHONY: help install dev build preview clean serve
 
 help:
 	@printf "Makefile targets for electric-fuel-calc\n\n"
@@ -24,7 +24,6 @@ help:
 	@printf "  make preview           Preview production build (vite preview)\n"
 	@printf "  make serve             Serve the built 'dist' directory using 'npx serve' (installs on demand)\n"
 	@printf "  make clean             Remove node_modules, dist and Vite cache\n"
-	@printf "  make cloudflare-deploy Deploy to Cloudflare Pages\n"
 	@printf "\nExamples:\n  make install\n  make dev\n\n"
 
 # Prefer reproducible installs when package-lock.json exists
@@ -58,7 +57,3 @@ clean:
 	@printf "Cleaning node_modules, dist, and Vite cache (if present)...\n"
 	@rm -rf node_modules dist .vite .cache
 	@printf "Clean complete.\n"
-
-cloudflare-deploy: build
-	@printf "Deploying to Cloudflare Pages...\n"
-	@npx wrangler pages deploy dist --project-name=$(CF_PAGES_PROJECT_NAME)
