@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import Footer from './components/Footer.vue'
 
 // Diesel/Petrol inputs
 const mpg = ref('')
@@ -320,6 +321,8 @@ const savingsPercentage = computed(() => {
         </div>
       </div>
     </div>
+
+    <Footer />
   </div>
 </template>
 
