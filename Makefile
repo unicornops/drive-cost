@@ -61,4 +61,4 @@ clean:
 
 cloudflare-deploy: build
 	@printf "Deploying to Cloudflare Pages...\n"
-	@npx wrangler pages deploy dist
+	@npx wrangler pages deploy dist --project-name=$(CF_PAGES_PROJECT_NAME)
