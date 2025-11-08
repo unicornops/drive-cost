@@ -182,24 +182,24 @@ const loadFromUrl = () => {
 
   // Parse numeric values
   if (params.has("distance")) {
-    const value = parseFloat(params.get("distance"));
-    if (!isNaN(value)) distance.value = value.toString();
+    const param = params.get("distance");
+    if (!isNaN(parseFloat(param))) distance.value = param;
   }
   if (params.has("mpg")) {
-    const value = parseFloat(params.get("mpg"));
-    if (!isNaN(value)) mpg.value = value.toString();
+    const param = params.get("mpg");
+    if (!isNaN(parseFloat(param))) mpg.value = param;
   }
   if (params.has("costPerLitre")) {
-    const value = parseFloat(params.get("costPerLitre"));
-    if (!isNaN(value)) costPerLitre.value = value.toString();
+    const param = params.get("costPerLitre");
+    if (!isNaN(parseFloat(param))) costPerLitre.value = param;
   }
   if (params.has("kwhPer100km")) {
-    const value = parseFloat(params.get("kwhPer100km"));
-    if (!isNaN(value)) kwhPer100km.value = value.toString();
+    const param = params.get("kwhPer100km");
+    if (!isNaN(parseFloat(param))) kwhPer100km.value = param;
   }
   if (params.has("costPerKwh")) {
-    const value = parseFloat(params.get("costPerKwh"));
-    if (!isNaN(value)) costPerKwh.value = value.toString();
+    const param = params.get("costPerKwh");
+    if (!isNaN(parseFloat(param))) costPerKwh.value = param;
   }
 
   // String values don't need parsing
