@@ -136,7 +136,7 @@ const savingsPercentage = computed(() => {
           <p
             class="text-base sm:text-xl text-gray-400 font-light tracking-wide"
           >
-            Compare your journey costs in real-time
+            Compare your journey costs with different fuel types and prices.
           </p>
         </div>
 
