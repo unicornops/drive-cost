@@ -17,6 +17,9 @@ const distanceUnit = ref("miles");
 // Gallon type (US or UK)
 const gallonType = ref("UK");
 
+// Fuel efficiency metric type (MPG or L/100km)
+const fuelMetricType = ref("MPG");
+
 // Conversion constants
 const LITRES_PER_UK_GALLON = 4.54609;
 const LITRES_PER_US_GALLON = 3.78541;
@@ -25,31 +28,43 @@ const KM_PER_MILE = 1.60934;
 // Calculate diesel/petrol cost
 const dieselCost = computed(() => {
   const dist = parseFloat(distance.value);
-  const milesPerGallon = parseFloat(mpg.value);
+  const fuelEfficiency = parseFloat(mpg.value);
   const pricePerLitre = parseFloat(costPerLitre.value);
 
   if (
     !dist ||
     dist <= 0 ||
-    !milesPerGallon ||
+    !fuelEfficiency ||
     !pricePerLitre ||
-    milesPerGallon <= 0 ||
+    fuelEfficiency <= 0 ||
     pricePerLitre <= 0
   ) {
     return null;
   }
 
-  // Convert distance to miles if needed
-  const distanceInMiles =
-    distanceUnit.value === "km" ? dist / KM_PER_MILE : dist;
+  let litresNeeded;
 
-  // Calculate gallons needed
-  const gallonsNeeded = distanceInMiles / milesPerGallon;
+  if (fuelMetricType.value === "MPG") {
+    // Convert distance to miles if needed
+    const distanceInMiles =
+      distanceUnit.value === "km" ? dist / KM_PER_MILE : dist;
 
-  // Convert gallons to litres
-  const litresPerGallon =
-    gallonType.value === "UK" ? LITRES_PER_UK_GALLON : LITRES_PER_US_GALLON;
-  const litresNeeded = gallonsNeeded * litresPerGallon;
+    // Calculate gallons needed
+    const gallonsNeeded = distanceInMiles / fuelEfficiency;
+
+    // Convert gallons to litres
+    const litresPerGallon =
+      gallonType.value === "UK" ? LITRES_PER_UK_GALLON : LITRES_PER_US_GALLON;
+    litresNeeded = gallonsNeeded * litresPerGallon;
+  } else {
+    // L/100km mode
+    // Convert distance to km if needed
+    const distanceInKm =
+      distanceUnit.value === "miles" ? dist * KM_PER_MILE : dist;
+
+    // Calculate litres needed
+    litresNeeded = (distanceInKm / 100) * fuelEfficiency;
+  }
 
   // Calculate cost
   return litresNeeded * pricePerLitre;
@@ -200,9 +215,44 @@ const savingsPercentage = computed(() => {
               <div class="space-y-3 sm:space-y-5">
                 <div>
                   <label
+                    class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
+                    >Fuel Efficiency Metric</label
+                  >
+                  <div class="grid grid-cols-2 gap-2 sm:gap-3">
+                    <button
+                      @click="fuelMetricType = 'MPG'"
+                      :class="[
+                        'py-2 sm:py-3 px-3 sm:px-5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all transform hover:scale-105',
+                        fuelMetricType === 'MPG'
+                          ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/50'
+                          : 'bg-gray-700/50 text-gray-400 border-2 border-gray-600 hover:border-orange-500/50',
+                      ]"
+                    >
+                      MPG
+                    </button>
+                    <button
+                      @click="fuelMetricType = 'L/100km'"
+                      :class="[
+                        'py-2 sm:py-3 px-3 sm:px-5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all transform hover:scale-105',
+                        fuelMetricType === 'L/100km'
+                          ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/50'
+                          : 'bg-gray-700/50 text-gray-400 border-2 border-gray-600 hover:border-orange-500/50',
+                      ]"
+                    >
+                      L/100km
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label
                     class="block text-xs font-bold text-orange-300 mb-2 uppercase tracking-wider"
                   >
-                    Miles per Gallon (MPG)
+                    {{
+                      fuelMetricType === "MPG"
+                        ? "Miles per Gallon (MPG)"
+                        : "Litres per 100 km"
+                    }}
                   </label>
                   <input
                     v-model="mpg"
@@ -210,7 +260,7 @@ const savingsPercentage = computed(() => {
                     step="0.1"
                     min="0"
                     class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-orange-500/50 rounded-xl focus:ring-4 focus:ring-orange-500/50 focus:border-orange-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
-                    placeholder="45.0"
+                    :placeholder="fuelMetricType === 'MPG' ? '45.0' : '6.5'"
                   />
                 </div>
 
@@ -230,7 +280,7 @@ const savingsPercentage = computed(() => {
                   />
                 </div>
 
-                <div>
+                <div v-if="fuelMetricType === 'MPG'">
                   <label
                     class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
                     >Gallon Type</label
