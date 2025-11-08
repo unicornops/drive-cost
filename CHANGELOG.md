@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.5.0 - 2025-11-08
+#### Features
+- Add support for MPG and L/100km fuel efficiency metrics - (ab3ea3b) - Rob Lazzurs
+
+- - -
+
 ## v0.4.1 - 2025-11-08
 #### Bug Fixes
 - Update journey cost comparison text for clarity - (3f49c3d) - Rob Lazzurs
