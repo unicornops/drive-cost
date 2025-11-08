@@ -3,21 +3,21 @@ const githubUrl = "https://github.com/unicornops/drive-cost";
 </script>
 
 <template>
-  <footer class="relative z-10 mt-8 pb-8">
-    <div class="max-w-7xl mx-auto px-4">
+  <footer class="relative z-10 mt-4 sm:mt-8 pb-4 sm:pb-8">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4">
       <div
-        class="bg-gray-900/60 backdrop-blur-xl rounded-2xl border border-purple-500/20 p-6"
+        class="bg-gray-900/60 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-purple-500/20 p-4 sm:p-6"
       >
-        <div class="flex justify-center items-center gap-6">
+        <div class="flex justify-center items-center gap-4 sm:gap-6">
           <a
             :href="githubUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center justify-center w-12 h-12 rounded-xl bg-gray-800/50 border-2 border-purple-500/30 hover:border-cyan-400 hover:bg-gray-700/50 transition-all transform hover:scale-110"
+            class="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gray-800/50 border-2 border-purple-500/30 hover:border-cyan-400 hover:bg-gray-700/50 transition-all transform hover:scale-110"
             aria-label="View on GitHub"
           >
             <svg
-              class="w-6 h-6 text-gray-400 group-hover:text-cyan-400 transition-colors"
+              class="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-cyan-400 transition-colors"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"

@@ -105,58 +105,60 @@ const savingsPercentage = computed(() => {
 
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black py-12 px-4 relative overflow-hidden"
+    class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black py-6 sm:py-12 px-3 sm:px-4 relative overflow-hidden"
   >
     <!-- Animated background elements -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <div
-        class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
+        class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"
       ></div>
       <div
-        class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse"
+        class="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse"
         style="animation-delay: 1s"
       ></div>
       <div
-        class="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+        class="absolute top-1/2 left-1/2 w-64 h-64 sm:w-96 sm:h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
         style="animation-delay: 2s"
       ></div>
     </div>
 
     <div class="max-w-7xl mx-auto relative z-10">
       <div
-        class="bg-gray-900/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-purple-500/30 p-8 md:p-12"
+        class="bg-gray-900/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-500/30 p-4 sm:p-8 md:p-12"
       >
         <!-- Header -->
-        <div class="text-center mb-12">
+        <div class="text-center mb-6 sm:mb-12">
           <h1
-            class="text-5xl md:text-6xl font-black mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient"
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 sm:mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient leading-tight"
           >
             FUEL COST CALCULATOR
           </h1>
-          <p class="text-xl text-gray-400 font-light tracking-wide">
+          <p
+            class="text-base sm:text-xl text-gray-400 font-light tracking-wide"
+          >
             Compare your journey costs in real-time
           </p>
         </div>
 
         <!-- Distance Input -->
-        <div class="mb-12 max-w-lg mx-auto">
+        <div class="mb-6 sm:mb-12 max-w-lg mx-auto">
           <label
-            class="block text-sm font-bold text-cyan-400 mb-3 uppercase tracking-wider"
+            class="block text-xs sm:text-sm font-bold text-cyan-400 mb-2 sm:mb-3 uppercase tracking-wider"
           >
             Journey Distance
           </label>
-          <div class="flex gap-3">
+          <div class="flex gap-2 sm:gap-3">
             <input
               v-model="distance"
               type="number"
               step="0.1"
               min="0"
-              class="flex-1 px-6 py-4 bg-gray-800/50 border-2 border-purple-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-white text-lg placeholder-gray-500"
+              class="flex-1 px-3 sm:px-6 py-3 sm:py-4 bg-gray-800/50 border-2 border-purple-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-white text-base sm:text-lg placeholder-gray-500"
               placeholder="100"
             />
             <select
               v-model="distanceUnit"
-              class="px-6 py-4 bg-gray-800/50 border-2 border-purple-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-white text-lg font-medium cursor-pointer"
+              class="px-3 sm:px-6 py-3 sm:py-4 bg-gray-800/50 border-2 border-purple-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-white text-base sm:text-lg font-medium cursor-pointer"
             >
               <option value="miles">Miles</option>
               <option value="km">KM</option>
@@ -165,21 +167,21 @@ const savingsPercentage = computed(() => {
         </div>
 
         <!-- Two Column Layout for Vehicle Types -->
-        <div class="grid lg:grid-cols-2 gap-8 mb-12">
+        <div class="grid lg:grid-cols-2 gap-4 sm:gap-8 mb-6 sm:mb-12">
           <!-- Diesel/Petrol Section -->
           <div class="group relative h-full">
             <div
               class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
             ></div>
             <div
-              class="relative bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border-2 border-orange-500/50 hover:border-orange-400 transition-all h-full flex flex-col"
+              class="relative bg-gray-800/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-8 border-2 border-orange-500/50 hover:border-orange-400 transition-all h-full flex flex-col"
             >
-              <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center justify-between mb-4 sm:mb-6">
                 <h2
-                  class="text-3xl font-black text-orange-400 flex items-center"
+                  class="text-xl sm:text-2xl md:text-3xl font-black text-orange-400 flex items-center"
                 >
                   <svg
-                    class="w-8 h-8 mr-3"
+                    class="w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -195,7 +197,7 @@ const savingsPercentage = computed(() => {
                 </h2>
               </div>
 
-              <div class="space-y-5">
+              <div class="space-y-3 sm:space-y-5">
                 <div>
                   <label
                     class="block text-xs font-bold text-orange-300 mb-2 uppercase tracking-wider"
@@ -207,7 +209,7 @@ const savingsPercentage = computed(() => {
                     type="number"
                     step="0.1"
                     min="0"
-                    class="w-full px-5 py-4 bg-gray-900/70 border-2 border-orange-500/50 rounded-xl focus:ring-4 focus:ring-orange-500/50 focus:border-orange-400 transition-all text-white text-lg placeholder-gray-600"
+                    class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-orange-500/50 rounded-xl focus:ring-4 focus:ring-orange-500/50 focus:border-orange-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
                     placeholder="45.0"
                   />
                 </div>
@@ -223,21 +225,21 @@ const savingsPercentage = computed(() => {
                     type="number"
                     step="0.01"
                     min="0"
-                    class="w-full px-5 py-4 bg-gray-900/70 border-2 border-orange-500/50 rounded-xl focus:ring-4 focus:ring-orange-500/50 focus:border-orange-400 transition-all text-white text-lg placeholder-gray-600"
+                    class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-orange-500/50 rounded-xl focus:ring-4 focus:ring-orange-500/50 focus:border-orange-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
                     placeholder="1.45"
                   />
                 </div>
 
                 <div>
                   <label
-                    class="block text-xs font-bold text-orange-300 mb-3 uppercase tracking-wider"
+                    class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
                     >Gallon Type</label
                   >
-                  <div class="grid grid-cols-2 gap-3">
+                  <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
                       @click="gallonType = 'UK'"
                       :class="[
-                        'py-3 px-5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all transform hover:scale-105',
+                        'py-2 sm:py-3 px-3 sm:px-5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all transform hover:scale-105',
                         gallonType === 'UK'
                           ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/50'
                           : 'bg-gray-700/50 text-gray-400 border-2 border-gray-600 hover:border-orange-500/50',
@@ -248,7 +250,7 @@ const savingsPercentage = computed(() => {
                     <button
                       @click="gallonType = 'US'"
                       :class="[
-                        'py-3 px-5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all transform hover:scale-105',
+                        'py-2 sm:py-3 px-3 sm:px-5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all transform hover:scale-105',
                         gallonType === 'US'
                           ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/50'
                           : 'bg-gray-700/50 text-gray-400 border-2 border-gray-600 hover:border-orange-500/50',
@@ -261,10 +263,10 @@ const savingsPercentage = computed(() => {
               </div>
 
               <!-- Diesel Cost Display -->
-              <div class="mt-auto pt-8">
+              <div class="mt-auto pt-4 sm:pt-8">
                 <div
                   v-if="dieselCost !== null"
-                  class="relative p-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-2xl shadow-orange-500/50 transform hover:scale-105 transition-transform"
+                  class="relative p-4 sm:p-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-2xl shadow-orange-500/50 transform hover:scale-105 transition-transform"
                 >
                   <div
                     class="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl blur opacity-50 animate-pulse"
@@ -275,16 +277,20 @@ const savingsPercentage = computed(() => {
                     >
                       Journey Cost
                     </p>
-                    <p class="text-5xl font-black text-white drop-shadow-lg">
+                    <p
+                      class="text-3xl sm:text-4xl md:text-5xl font-black text-white drop-shadow-lg"
+                    >
                       {{ dieselCost.toFixed(2) }}
                     </p>
                   </div>
                 </div>
                 <div
                   v-else
-                  class="p-6 bg-gray-800/50 rounded-xl text-gray-500 text-center border-2 border-dashed border-gray-700"
+                  class="p-4 sm:p-6 bg-gray-800/50 rounded-xl text-gray-500 text-center border-2 border-dashed border-gray-700"
                 >
-                  <p class="text-sm font-medium uppercase tracking-wider">
+                  <p
+                    class="text-xs sm:text-sm font-medium uppercase tracking-wider"
+                  >
                     Enter values
                   </p>
                 </div>
@@ -298,12 +304,14 @@ const savingsPercentage = computed(() => {
               class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-lime-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
             ></div>
             <div
-              class="relative bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border-2 border-cyan-500/50 hover:border-cyan-400 transition-all h-full flex flex-col"
+              class="relative bg-gray-800/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-8 border-2 border-cyan-500/50 hover:border-cyan-400 transition-all h-full flex flex-col"
             >
-              <div class="flex items-center justify-between mb-6">
-                <h2 class="text-3xl font-black text-cyan-400 flex items-center">
+              <div class="flex items-center justify-between mb-4 sm:mb-6">
+                <h2
+                  class="text-xl sm:text-2xl md:text-3xl font-black text-cyan-400 flex items-center"
+                >
                   <svg
-                    class="w-8 h-8 mr-3"
+                    class="w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -319,7 +327,7 @@ const savingsPercentage = computed(() => {
                 </h2>
               </div>
 
-              <div class="space-y-5">
+              <div class="space-y-3 sm:space-y-5">
                 <div>
                   <label
                     class="block text-xs font-bold text-cyan-300 mb-2 uppercase tracking-wider"
@@ -331,7 +339,7 @@ const savingsPercentage = computed(() => {
                     type="number"
                     step="0.1"
                     min="0"
-                    class="w-full px-5 py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-lg placeholder-gray-600"
+                    class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
                     placeholder="15.5"
                   />
                 </div>
@@ -347,17 +355,17 @@ const savingsPercentage = computed(() => {
                     type="number"
                     step="0.01"
                     min="0"
-                    class="w-full px-5 py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-lg placeholder-gray-600"
+                    class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
                     placeholder="0.28"
                   />
                 </div>
               </div>
 
               <!-- Electric Cost Display -->
-              <div class="mt-auto pt-8">
+              <div class="mt-auto pt-4 sm:pt-8">
                 <div
                   v-if="electricCost !== null"
-                  class="relative p-6 bg-gradient-to-br from-cyan-500 to-lime-500 rounded-xl shadow-2xl shadow-cyan-500/50 transform hover:scale-105 transition-transform"
+                  class="relative p-4 sm:p-6 bg-gradient-to-br from-cyan-500 to-lime-500 rounded-xl shadow-2xl shadow-cyan-500/50 transform hover:scale-105 transition-transform"
                 >
                   <div
                     class="absolute inset-0 bg-gradient-to-br from-cyan-400 to-lime-400 rounded-xl blur opacity-50 animate-pulse"
@@ -368,16 +376,20 @@ const savingsPercentage = computed(() => {
                     >
                       Journey Cost
                     </p>
-                    <p class="text-5xl font-black text-white drop-shadow-lg">
+                    <p
+                      class="text-3xl sm:text-4xl md:text-5xl font-black text-white drop-shadow-lg"
+                    >
                       {{ electricCost.toFixed(2) }}
                     </p>
                   </div>
                 </div>
                 <div
                   v-else
-                  class="p-6 bg-gray-800/50 rounded-xl text-gray-500 text-center border-2 border-dashed border-gray-700"
+                  class="p-4 sm:p-6 bg-gray-800/50 rounded-xl text-gray-500 text-center border-2 border-dashed border-gray-700"
                 >
-                  <p class="text-sm font-medium uppercase tracking-wider">
+                  <p
+                    class="text-xs sm:text-sm font-medium uppercase tracking-wider"
+                  >
                     Enter values
                   </p>
                 </div>
@@ -395,52 +407,58 @@ const savingsPercentage = computed(() => {
             class="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity"
           ></div>
           <div
-            class="relative bg-gray-800/90 backdrop-blur-sm p-8 rounded-2xl border-2 border-purple-500/50"
+            class="relative bg-gray-800/90 backdrop-blur-sm p-4 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-purple-500/50"
           >
             <h3
-              class="text-3xl font-black mb-8 text-center bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase tracking-wider"
+              class="text-xl sm:text-2xl md:text-3xl font-black mb-4 sm:mb-8 text-center bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase tracking-wider"
             >
               Cost Comparison
             </h3>
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-3 gap-3 sm:gap-6">
               <div
-                class="bg-gradient-to-br from-orange-500/20 to-red-500/20 backdrop-blur-sm rounded-xl p-6 border border-orange-500/30 text-center transform hover:scale-105 transition-transform"
+                class="bg-gradient-to-br from-orange-500/20 to-red-500/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-orange-500/30 text-center transform hover:scale-105 transition-transform"
               >
                 <p
                   class="text-xs font-bold text-orange-300 mb-2 uppercase tracking-widest"
                 >
                   Diesel/Petrol
                 </p>
-                <p class="text-4xl font-black text-white drop-shadow-lg">
+                <p
+                  class="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg"
+                >
                   {{ dieselCost.toFixed(2) }}
                 </p>
               </div>
               <div
-                class="bg-gradient-to-br from-cyan-500/20 to-lime-500/20 backdrop-blur-sm rounded-xl p-6 border border-cyan-500/30 text-center transform hover:scale-105 transition-transform"
+                class="bg-gradient-to-br from-cyan-500/20 to-lime-500/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-cyan-500/30 text-center transform hover:scale-105 transition-transform"
               >
                 <p
                   class="text-xs font-bold text-cyan-300 mb-2 uppercase tracking-widest"
                 >
                   Electric
                 </p>
-                <p class="text-4xl font-black text-white drop-shadow-lg">
+                <p
+                  class="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg"
+                >
                   {{ electricCost.toFixed(2) }}
                 </p>
               </div>
               <div
-                class="bg-gradient-to-br from-pink-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl p-6 border border-pink-500/30 text-center transform hover:scale-105 transition-transform"
+                class="bg-gradient-to-br from-pink-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-pink-500/30 text-center transform hover:scale-105 transition-transform"
               >
                 <p
                   class="text-xs font-bold text-pink-300 mb-2 uppercase tracking-widest"
                 >
                   {{ savings > 0 ? "You Save" : "Extra Cost" }}
                 </p>
-                <p class="text-4xl font-black text-white drop-shadow-lg">
+                <p
+                  class="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-lg"
+                >
                   {{ Math.abs(savings).toFixed(2) }}
                 </p>
                 <p
                   v-if="savingsPercentage !== null"
-                  class="text-sm font-bold text-pink-200 mt-2"
+                  class="text-xs sm:text-sm font-bold text-pink-200 mt-2"
                 >
                   {{ Math.abs(savingsPercentage).toFixed(1) }}%
                   {{ savings > 0 ? "cheaper" : "more" }}
