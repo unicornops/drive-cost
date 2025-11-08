@@ -1,11 +1,13 @@
 <script setup>
-const githubUrl = 'https://github.com/unicornops/drive-cost'
+const githubUrl = "https://github.com/unicornops/drive-cost";
 </script>
 
 <template>
   <footer class="relative z-10 mt-8 pb-8">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="bg-gray-900/60 backdrop-blur-xl rounded-2xl border border-purple-500/20 p-6">
+      <div
+        class="bg-gray-900/60 backdrop-blur-xl rounded-2xl border border-purple-500/20 p-6"
+      >
         <div class="flex justify-center items-center gap-6">
           <a
             :href="githubUrl"
@@ -33,5 +35,4 @@ const githubUrl = 'https://github.com/unicornops/drive-cost'
   </footer>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

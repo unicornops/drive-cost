@@ -123,16 +123,19 @@ Key dependencies in `package.json`:
 ## Common Issues and Solutions
 
 ### Issue: Calculations not updating
+
 - Check reactive references (`ref`, `computed`)
 - Ensure v-model bindings are correct
 - Verify input types (number vs string)
 
 ### Issue: Styling not applied
+
 - Check Tailwind configuration
 - Ensure PostCSS is processing correctly
 - Verify class names are correct
 
 ### Issue: Build fails
+
 - Clear `node_modules` and reinstall: `rm -rf node_modules && npm install`
 - Check for syntax errors in Vue components
 - Verify all imports are correct

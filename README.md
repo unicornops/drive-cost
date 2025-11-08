@@ -20,11 +20,13 @@ A modern single-page application for comparing journey costs between Diesel/Petr
 ### Installation
 
 1. Clone the repository and navigate to the project directory:
+
 ```bash
 cd electric-fuel-app
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -40,6 +42,7 @@ npm run dev
 The application will be available at `http://localhost:5173/` (or the next available port if 5173 is in use).
 
 The development server includes:
+
 - Hot Module Replacement (HMR) - changes are reflected instantly
 - Fast refresh for Vue components
 - Error overlay in the browser
