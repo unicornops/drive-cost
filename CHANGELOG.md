@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.4.1 - 2025-11-08
+#### Bug Fixes
+- Update journey cost comparison text for clarity - (3f49c3d) - Rob Lazzurs
+
+- - -
+
 ## v0.4.0 - 2025-11-08
 #### Features
 - Improve mobile responsiveness and spacing for all layouts - (1e97078) - Rob Lazzurs
