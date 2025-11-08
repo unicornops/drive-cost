@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.2.0 - 2025-11-08
+#### Features
+- Add AGENTS.md - (5f72897) - Rob Lazzurs
+
+- - -
+
 ## v0.1.0 - 2025-11-08
 #### Features
 - Adding footer linking to github - (020fc34) - Rob Lazzurs
