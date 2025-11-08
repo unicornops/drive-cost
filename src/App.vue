@@ -20,10 +20,14 @@ const gallonType = ref("UK");
 // Fuel efficiency metric type (MPG or L/100km)
 const fuelMetricType = ref("MPG");
 
+// Electric efficiency metric type (kWh/100km or MPGe)
+const electricMetricType = ref("kWh/100km");
+
 // Conversion constants
 const LITRES_PER_UK_GALLON = 4.54609;
 const LITRES_PER_US_GALLON = 3.78541;
 const KM_PER_MILE = 1.60934;
+const KWH_PER_GALLON_EQUIVALENT = 33.7; // EPA standard for MPGe
 
 // Calculate diesel/petrol cost
 const dieselCost = computed(() => {
@@ -73,26 +77,41 @@ const dieselCost = computed(() => {
 // Calculate electric cost
 const electricCost = computed(() => {
   const dist = parseFloat(distance.value);
-  const kwhPer100 = parseFloat(kwhPer100km.value);
+  const efficiency = parseFloat(kwhPer100km.value);
   const pricePerKwh = parseFloat(costPerKwh.value);
 
   if (
     !dist ||
     dist <= 0 ||
-    !kwhPer100 ||
+    !efficiency ||
     !pricePerKwh ||
-    kwhPer100 <= 0 ||
+    efficiency <= 0 ||
     pricePerKwh <= 0
   ) {
     return null;
   }
 
-  // Convert distance to km if needed
-  const distanceInKm =
-    distanceUnit.value === "miles" ? dist * KM_PER_MILE : dist;
+  let kwhNeeded;
 
-  // Calculate kWh needed
-  const kwhNeeded = (distanceInKm / 100) * kwhPer100;
+  if (electricMetricType.value === "kWh/100km") {
+    // kWh per 100km mode
+    // Convert distance to km if needed
+    const distanceInKm =
+      distanceUnit.value === "miles" ? dist * KM_PER_MILE : dist;
+
+    // Calculate kWh needed
+    kwhNeeded = (distanceInKm / 100) * efficiency;
+  } else {
+    // MPGe mode
+    // Convert distance to miles if needed
+    const distanceInMiles =
+      distanceUnit.value === "km" ? dist / KM_PER_MILE : dist;
+
+    // Calculate kWh needed
+    // MPGe = miles / (kWh / 33.7)
+    // Therefore: kWh = (miles / MPGe) * 33.7
+    kwhNeeded = (distanceInMiles / efficiency) * KWH_PER_GALLON_EQUIVALENT;
+  }
 
   // Calculate cost
   return kwhNeeded * pricePerKwh;
@@ -380,9 +399,44 @@ const savingsPercentage = computed(() => {
               <div class="space-y-3 sm:space-y-5">
                 <div>
                   <label
+                    class="block text-xs font-bold text-cyan-300 mb-2 sm:mb-3 uppercase tracking-wider"
+                    >Efficiency Metric</label
+                  >
+                  <div class="grid grid-cols-2 gap-2 sm:gap-3">
+                    <button
+                      @click="electricMetricType = 'kWh/100km'"
+                      :class="[
+                        'py-2 sm:py-3 px-3 sm:px-5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all transform hover:scale-105',
+                        electricMetricType === 'kWh/100km'
+                          ? 'bg-gradient-to-r from-cyan-500 to-lime-500 text-white shadow-lg shadow-cyan-500/50'
+                          : 'bg-gray-700/50 text-gray-400 border-2 border-gray-600 hover:border-cyan-500/50',
+                      ]"
+                    >
+                      kWh/100km
+                    </button>
+                    <button
+                      @click="electricMetricType = 'MPGe'"
+                      :class="[
+                        'py-2 sm:py-3 px-3 sm:px-5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all transform hover:scale-105',
+                        electricMetricType === 'MPGe'
+                          ? 'bg-gradient-to-r from-cyan-500 to-lime-500 text-white shadow-lg shadow-cyan-500/50'
+                          : 'bg-gray-700/50 text-gray-400 border-2 border-gray-600 hover:border-cyan-500/50',
+                      ]"
+                    >
+                      MPGe
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label
                     class="block text-xs font-bold text-cyan-300 mb-2 uppercase tracking-wider"
                   >
-                    kWh per 100 km
+                    {{
+                      electricMetricType === "kWh/100km"
+                        ? "kWh per 100 km"
+                        : "Miles per Gallon equivalent (MPGe)"
+                    }}
                   </label>
                   <input
                     v-model="kwhPer100km"
@@ -390,7 +444,9 @@ const savingsPercentage = computed(() => {
                     step="0.1"
                     min="0"
                     class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
-                    placeholder="15.5"
+                    :placeholder="
+                      electricMetricType === 'kWh/100km' ? '15.5' : '100'
+                    "
                   />
                 </div>
 
