@@ -14,7 +14,7 @@ SHELL := /bin/sh
 NPM ?= npm
 NODE ?= node
 
-.PHONY: help install dev build preview clean serve
+.PHONY: help install dev build preview test test-unit test-e2e test-ci clean serve
 
 help:
 	@printf "Makefile targets for electric-fuel-calc\n\n"
@@ -47,6 +47,31 @@ build:
 preview:
 	@printf "Previewing production build (local server)...\n"
 	$(NPM) run preview
+
+# Test targets
+# `make test` runs unit tests by default
+test: test-unit
+
+test-unit:
+	@printf "Running unit tests (Vitest)...\n"
+	$(NPM) run test:unit
+
+# Run E2E tests. This target builds the app and runs Playwright tests against a preview server.
+# On CI, prefer using the CI workflow which runs build + Playwright with installed browsers.
+test-e2e: build
+	@printf "Running end-to-end tests (Playwright) against preview server...\n"
+	@# Build is a dependency; start preview in background so Playwright can test against it.
+	@$(NPM) run preview --silent & \
+	PREV_PID=$$!; \
+		sleep 1; \
+		npx playwright test --forbid-only; \
+		kill $$PREV_PID || true
+
+# CI convenience target that runs unit and e2e
+test-ci: build
+	@printf "Running CI tests: unit + e2e\n"
+	$(NPM) run test
+	$(NPM) run test:e2e
 
 # Serve the dist directory using npx serve (convenience)
 serve: build

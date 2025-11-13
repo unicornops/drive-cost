@@ -50,6 +50,11 @@ build/
 coverage/
 *.lcov
 
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
 # Temporary files
 *.tmp
 *.temp
