@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.7.0 - 2025-11-13
+#### Features
+- Add Playwright E2E and Vitest unit testing setup - (d59156a) - Rob Lazzurs
+#### Bug Fixes
+- Update package.json - (f41ec0d) - Rob Lazzurs
+
+- - -
+
 ## v0.6.0 - 2025-11-08
 #### Features
 - Add electric efficiency metric toggle and MPGe support - (615aed0) - Rob Lazzurs
