@@ -6,10 +6,10 @@
  * This file is referenced by Vitest via `setupFiles` in vitest.config.js
  */
 
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom";
 
 // Basic window.matchMedia shim for components that check media queries
-if (typeof window !== 'undefined' && !window.matchMedia) {
+if (typeof window !== "undefined" && !window.matchMedia) {
   // Minimal mock implementation used in many component libraries
   window.matchMedia = (query) => {
     return {
@@ -21,22 +21,22 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
       addEventListener: () => {},
       removeEventListener: () => {},
       dispatchEvent: () => false,
-    }
-  }
+    };
+  };
 }
 
 // Minimal ResizeObserver shim for components that use it
-if (typeof window !== 'undefined' && !window.ResizeObserver) {
+if (typeof window !== "undefined" && !window.ResizeObserver) {
   class ResizeObserver {
     constructor(callback) {
-      this._cb = callback
+      this._cb = callback;
     }
     observe() {}
     unobserve() {}
     disconnect() {}
   }
   // @ts-ignore
-  window.ResizeObserver = ResizeObserver
+  window.ResizeObserver = ResizeObserver;
 }
 
 // Optionally add any other globals you need for tests below.
