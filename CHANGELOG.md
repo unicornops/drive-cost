@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.9.0 - 2025-11-26
+#### Features
+- Add changelog generation and GitHub release upload steps - (c5e4d30) - Rob Lazzurs
+
+- - -
+
 ## v0.8.0 - 2025-11-26
 #### Features
 - Add per-distance tax option for diesel and electric costs - (f5fa1c2) - Rob Lazzurs
