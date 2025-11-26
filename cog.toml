@@ -23,5 +23,3 @@ chore = { changelog_title = "Chores" }
 [changelog]
 path = "CHANGELOG.md"
 authors = []
-
-[bump_profiles]
