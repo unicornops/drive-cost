@@ -23,6 +23,7 @@ jobs:
         uses: cocogitto/cocogitto-action@v4
         with:
           command: check
+          args: --from-latest-tag
       - name: Get next version
         id: next_version
         run: |
