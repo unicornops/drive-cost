@@ -19,14 +19,6 @@ repos:
       - id: mixed-line-ending
         args: ["--fix=lf"]
 
-  # Prettier for code formatting
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
-    hooks:
-      - id: prettier
-        types_or: [javascript, jsx, ts, tsx, vue, json, markdown, yaml, css]
-        args: ["--write"]
-
   # ESLint for JavaScript/Vue linting
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v9.39.1
