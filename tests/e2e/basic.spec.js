@@ -128,3 +128,152 @@ test("main flow: calculate diesel vs electric cost and savings (JS)", async ({
     }
   }
 });
+
+test("per-distance tax: diesel with tax", async ({ page }) => {
+  const LITRES_PER_UK_GALLON = 4.54609;
+
+  await page.goto("/");
+
+  // Fill inputs
+  await page.fill('input[placeholder="100"]', "100"); // distance (miles)
+  await page.fill('input[placeholder="45.0"]', "45"); // MPG
+  await page.fill('input[placeholder="1.45"]', "1.45"); // cost per litre
+
+  // Fill the first tax field (diesel tax per mile) with 0.05
+  const taxInputs = page.locator('input[placeholder="0.00"]');
+  await taxInputs.first().fill("0.05");
+
+  // Wait for the diesel cost display to be visible
+  await page.waitForSelector('div:has(> p:text("Journey Cost"))');
+
+  // Get the diesel cost from the orange-themed section
+  const dieselSection = page
+    .locator('div:has(> div > h2:text("DIESEL/PETROL"))')
+    .first();
+  const dieselCostCard = dieselSection.locator(
+    'div:has(> div > p:text("Journey Cost"))',
+  );
+  const dieselValueLocator = dieselCostCard.locator("div > p").nth(1);
+
+  await expect(dieselValueLocator).toBeVisible();
+  const dieselText = ((await dieselValueLocator.textContent()) || "").trim();
+  const dieselDisplayed = parseFloat(dieselText.replace(/[^\d.-]/g, ""));
+
+  // Calculate expected value
+  const distanceMiles = 100;
+  const mpg = 45;
+  const pricePerLitre = 1.45;
+  const taxPerMile = 0.05;
+
+  const litresNeeded = (distanceMiles / mpg) * LITRES_PER_UK_GALLON;
+  const fuelCost = litresNeeded * pricePerLitre;
+  const taxCost = distanceMiles * taxPerMile;
+  const totalExpected = fuelCost + taxCost;
+
+  const closeEnough = (a, b, dp = 2) =>
+    Math.abs(a - b) < Math.pow(10, -dp) * Math.max(1, Math.abs(b));
+
+  if (!closeEnough(dieselDisplayed, totalExpected, 2)) {
+    throw new Error(
+      `Diesel cost with tax mismatch: displayed=${dieselDisplayed} expected=${totalExpected}`,
+    );
+  }
+});
+
+test("per-distance tax: electric with tax", async ({ page }) => {
+  const KM_PER_MILE = 1.60934;
+
+  await page.goto("/");
+
+  // Fill inputs
+  await page.fill('input[placeholder="100"]', "100"); // distance (miles)
+  await page.fill('input[placeholder="15.5"]', "15.5"); // kWh per 100km
+  await page.fill('input[placeholder="0.28"]', "0.28"); // cost per kWh
+
+  // Fill the second tax field (electric tax per mile) with 0.03
+  const taxInputs = page.locator('input[placeholder="0.00"]');
+  await taxInputs.nth(1).fill("0.03");
+
+  // Wait for the electric cost display to be visible
+  await page.waitForSelector('div:has(> div > p:text("Journey Cost"))');
+
+  // Get the electric cost from the cyan-themed section
+  const electricSection = page
+    .locator('div:has(> div > h2:text("ELECTRIC"))')
+    .first();
+  const electricCostCard = electricSection.locator(
+    'div:has(> div > p:text("Journey Cost"))',
+  );
+  const electricValueLocator = electricCostCard.locator("div > p").nth(1);
+
+  await expect(electricValueLocator).toBeVisible();
+  const electricText = (
+    (await electricValueLocator.textContent()) || ""
+  ).trim();
+  const electricDisplayed = parseFloat(electricText.replace(/[^\d.-]/g, ""));
+
+  // Calculate expected value
+  const distanceMiles = 100;
+  const distanceKm = distanceMiles * KM_PER_MILE;
+  const kwhPer100km = 15.5;
+  const pricePerKwh = 0.28;
+  const taxPerMile = 0.03;
+
+  const kwhNeeded = (distanceKm / 100) * kwhPer100km;
+  const electricityCost = kwhNeeded * pricePerKwh;
+  const taxCost = distanceMiles * taxPerMile;
+  const totalExpected = electricityCost + taxCost;
+
+  const closeEnough = (a, b, dp = 2) =>
+    Math.abs(a - b) < Math.pow(10, -dp) * Math.max(1, Math.abs(b));
+
+  if (!closeEnough(electricDisplayed, totalExpected, 2)) {
+    throw new Error(
+      `Electric cost with tax mismatch: displayed=${electricDisplayed} expected=${totalExpected}`,
+    );
+  }
+});
+
+test("per-distance tax: defaults to 0", async ({ page }) => {
+  const LITRES_PER_UK_GALLON = 4.54609;
+
+  await page.goto("/");
+
+  // Fill inputs WITHOUT tax
+  await page.fill('input[placeholder="100"]', "100"); // distance (miles)
+  await page.fill('input[placeholder="45.0"]', "45"); // MPG
+  await page.fill('input[placeholder="1.45"]', "1.45"); // cost per litre
+
+  // Wait for the diesel cost display to be visible
+  await page.waitForSelector('div:has(> div > p:text("Journey Cost"))');
+
+  // Get the diesel cost
+  const dieselSection = page
+    .locator('div:has(> div > h2:text("DIESEL/PETROL"))')
+    .first();
+  const dieselCostCard = dieselSection.locator(
+    'div:has(> div > p:text("Journey Cost"))',
+  );
+  const dieselValueLocator = dieselCostCard.locator("div > p").nth(1);
+
+  await expect(dieselValueLocator).toBeVisible();
+  const dieselText = ((await dieselValueLocator.textContent()) || "").trim();
+  const dieselDisplayed = parseFloat(dieselText.replace(/[^\d.-]/g, ""));
+
+  // Calculate expected value without tax
+  const distanceMiles = 100;
+  const mpg = 45;
+  const pricePerLitre = 1.45;
+
+  const litresNeeded = (distanceMiles / mpg) * LITRES_PER_UK_GALLON;
+  const expectedCost = litresNeeded * pricePerLitre;
+
+  const closeEnough = (a, b, dp = 2) =>
+    Math.abs(a - b) < Math.pow(10, -dp) * Math.max(1, Math.abs(b));
+
+  if (!closeEnough(dieselDisplayed, expectedCost, 2)) {
+    throw new Error(
+      `Diesel cost without tax mismatch: displayed=${dieselDisplayed} expected=${expectedCost}`,
+    );
+  }
+});

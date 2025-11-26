@@ -71,6 +71,12 @@ Before committing changes:
   - US gallon = 3.78541 litres
   - Miles to km conversion factor
   - kWh per 100km conversions
+- Per-distance tax calculations:
+  - Both diesel/petrol and electric vehicles support optional per-distance tax
+  - Tax is calculated as: `distance * taxPerDistance`
+  - Tax defaults to 0 when not specified
+  - Tax is added to the base fuel/electricity cost
+  - Tax amount adjusts based on the distance unit (miles or km)
 
 #### Styling Updates
 
@@ -95,6 +101,7 @@ When making changes, ensure these core features remain functional:
 4. **Accurate Conversions**: Proper handling of UK vs US gallons
 5. **Clear Comparison**: Savings calculation and display
 6. **Responsive Design**: Works on all screen sizes
+7. **Per-Distance Tax**: Optional tax per mile/km for both fuel types (defaults to 0)
 
 ## Potential Improvements
 

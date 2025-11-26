@@ -5,10 +5,12 @@ import Footer from "./components/Footer.vue";
 // Diesel/Petrol inputs
 const mpg = ref("");
 const costPerLitre = ref("");
+const dieselTaxPerDistance = ref(0);
 
 // Electric inputs
 const kwhPer100km = ref("");
 const costPerKwh = ref("");
+const electricTaxPerDistance = ref(0);
 
 // Distance inputs
 const distance = ref("");
@@ -70,8 +72,14 @@ const dieselCost = computed(() => {
     litresNeeded = (distanceInKm / 100) * fuelEfficiency;
   }
 
-  // Calculate cost
-  return litresNeeded * pricePerLitre;
+  // Calculate base fuel cost
+  const fuelCost = litresNeeded * pricePerLitre;
+
+  // Add per-distance tax
+  const taxPerDistance = parseFloat(dieselTaxPerDistance.value) || 0;
+  const taxCost = dist * taxPerDistance;
+
+  return fuelCost + taxCost;
 });
 
 // Calculate electric cost
@@ -113,8 +121,14 @@ const electricCost = computed(() => {
     kwhNeeded = (distanceInMiles / efficiency) * KWH_PER_GALLON_EQUIVALENT;
   }
 
-  // Calculate cost
-  return kwhNeeded * pricePerKwh;
+  // Calculate base electricity cost
+  const electricityCost = kwhNeeded * pricePerKwh;
+
+  // Add per-distance tax
+  const taxPerDistance = parseFloat(electricTaxPerDistance.value) || 0;
+  const taxCost = dist * taxPerDistance;
+
+  return electricityCost + taxCost;
 });
 
 // Calculate savings
@@ -299,6 +313,23 @@ const savingsPercentage = computed(() => {
                   />
                 </div>
 
+                <div>
+                  <label
+                    class="block text-xs font-bold text-orange-300 mb-2 uppercase tracking-wider"
+                  >
+                    Tax per
+                    {{ distanceUnit === "miles" ? "Mile" : "KM" }} (Optional)
+                  </label>
+                  <input
+                    v-model="dieselTaxPerDistance"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-orange-500/50 rounded-xl focus:ring-4 focus:ring-orange-500/50 focus:border-orange-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
+                    placeholder="0.00"
+                  />
+                </div>
+
                 <div v-if="fuelMetricType === 'MPG'">
                   <label
                     class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
@@ -463,6 +494,23 @@ const savingsPercentage = computed(() => {
                     min="0"
                     class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
                     placeholder="0.28"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-bold text-cyan-300 mb-2 uppercase tracking-wider"
+                  >
+                    Tax per
+                    {{ distanceUnit === "miles" ? "Mile" : "KM" }} (Optional)
+                  </label>
+                  <input
+                    v-model="electricTaxPerDistance"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    class="w-full px-3 sm:px-5 py-3 sm:py-4 bg-gray-900/70 border-2 border-cyan-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all text-white text-base sm:text-lg placeholder-gray-600"
+                    placeholder="0.00"
                   />
                 </div>
               </div>
