@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.8.0 - 2025-11-26
+#### Features
+- Add per-distance tax option for diesel and electric costs - (f5fa1c2) - Rob Lazzurs
+#### Bug Fixes
+- remove archived pre-commit hook - (249ece8) - Rob Lazzurs
+- Remove unused bump_profiles section from config - (b0ec130) - Rob Lazzurs
+- Add --from-latest-tag to cocogitto check command - (e96c77d) - Rob Lazzurs
+#### Chores
+- (**deps**) bump actions/checkout from 4 to 5 - (3b0c643) - dependabot[bot]
+
+- - -
+
 
 ## v0.7.0 - 2025-11-13
 
