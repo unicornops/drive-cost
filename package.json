@@ -19,7 +19,7 @@
   "devDependencies": {
     "npm-check-updates": "^19.1.2",
     "@playwright/test": "^1.57.0",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/jest-dom": "^6.9.1",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vitest/coverage-v8": "^4.0.14",
