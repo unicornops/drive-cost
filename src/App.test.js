@@ -122,10 +122,16 @@ describe("App.vue", () => {
     // Initially should show "Tax per Mile"
     expect(wrapper.html()).toContain("Tax per Mile");
 
-    // Find and change the distance unit dropdown to km
-    const distanceUnitSelect = wrapper.find('select');
+    // Find the distance unit dropdown by looking for the select with "Miles" and "KM" options
+    const distanceUnitSelect = wrapper.findAll('select').find(select => {
+      const html = select.html();
+      return html.includes('value="miles"') && html.includes('value="km"');
+    });
+    
+    expect(distanceUnitSelect).toBeDefined();
+    
+    // Change to km
     await distanceUnitSelect.setValue("km");
-
     await wrapper.vm.$nextTick();
 
     // Now should show "Tax per KM"
@@ -134,7 +140,6 @@ describe("App.vue", () => {
 
     // Switch back to miles
     await distanceUnitSelect.setValue("miles");
-
     await wrapper.vm.$nextTick();
 
     // Should show "Tax per Mile" again
