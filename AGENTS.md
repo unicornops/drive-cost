@@ -152,7 +152,83 @@ Key dependencies in `package.json`:
 - Main branch: `main`
 - Current tracking shows modified files in `src/` and `node_modules/`
 - Always test changes before committing
-- Use conventional commit messages (see `cog.toml` for conventions)
+- **IMPORTANT: Use conventional commit messages** (see details below)
+
+### Conventional Commits
+
+**All commits MUST follow the Conventional Commits specification.**
+
+This project uses [Cocogitto](https://github.com/cocogitto/cocogitto) for managing conventional commits and changelog generation (configured in `cog.toml`).
+
+#### Commit Message Format
+
+Each commit message must follow this format:
+
+```
+<type>: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### Commit Types
+
+Use one of these commit types:
+
+- **feat**: A new feature (triggers minor version bump)
+- **fix**: A bug fix (triggers patch version bump)
+- **docs**: Documentation only changes
+- **style**: Changes that don't affect the meaning of the code (white-space, formatting, etc.)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing tests or correcting existing tests
+- **build**: Changes that affect the build system or external dependencies
+- **ci**: Changes to CI configuration files and scripts
+- **chore**: Other changes that don't modify src or test files
+
+#### Examples
+
+Good commit messages:
+```
+feat: add currency conversion option to calculator
+fix: correct UK gallon to liter conversion factor
+docs: update README with installation instructions
+refactor: simplify fuel cost calculation logic
+test: add unit tests for electric vehicle calculations
+chore: update dependencies to latest versions
+```
+
+Bad commit messages (DO NOT use these):
+```
+✗ Updated files
+✗ Fix bug
+✗ WIP
+✗ changes
+✗ misc updates
+```
+
+#### Breaking Changes
+
+For breaking changes, add `!` after the type or add `BREAKING CHANGE:` in the footer:
+
+```
+feat!: change API response format
+
+BREAKING CHANGE: The API now returns costs in cents instead of dollars
+```
+
+#### Scope (Optional)
+
+You can add a scope to provide additional context:
+
+```
+feat(calculator): add hybrid vehicle support
+fix(ui): correct responsive layout on mobile
+docs(readme): add deployment instructions
+```
+
+**Remember: Following conventional commits is mandatory for all changes to this repository.**
 
 ## Contact and Resources
 
