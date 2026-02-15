@@ -115,4 +115,29 @@ describe("App.vue", () => {
     const dieselCostText = wrapper.text();
     expect(dieselCostText).toContain("Journey Cost");
   });
+
+  it("changes tax label from Mile to KM when distance unit changes", async () => {
+    const wrapper = mount(App);
+
+    // Initially should show "Tax per Mile"
+    expect(wrapper.html()).toContain("Tax per Mile");
+
+    // Find and change the distance unit dropdown to km
+    const distanceUnitSelect = wrapper.find('select');
+    await distanceUnitSelect.setValue("km");
+
+    await wrapper.vm.$nextTick();
+
+    // Now should show "Tax per KM"
+    expect(wrapper.html()).toContain("Tax per KM");
+    expect(wrapper.html()).not.toContain("Tax per Mile");
+
+    // Switch back to miles
+    await distanceUnitSelect.setValue("miles");
+
+    await wrapper.vm.$nextTick();
+
+    // Should show "Tax per Mile" again
+    expect(wrapper.html()).toContain("Tax per Mile");
+  });
 });
