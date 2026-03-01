@@ -41,14 +41,14 @@ jobs:
 
       - name: Upload coverage (if any)
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: coverage
 
       - name: Upload Playwright HTML report (if any)
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: playwright-report
