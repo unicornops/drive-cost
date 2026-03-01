@@ -214,16 +214,45 @@ const loadFromUrl = () => {
   shareUrl.value = window.location.href;
 };
 
-// Copy share URL to clipboard
+// Copy share URL to clipboard with fallback for non-HTTPS or unsupported browsers
 const copyShareUrl = async () => {
-  try {
-    await navigator.clipboard.writeText(shareUrl.value);
+  const textToCopy = shareUrl.value;
+  const showSuccess = () => {
     showCopiedMessage.value = true;
     setTimeout(() => {
       showCopiedMessage.value = false;
     }, 2000);
+  };
+
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      showSuccess();
+      return;
+    } catch (err) {
+      console.warn("Clipboard API failed, falling back:", err);
+    }
+  }
+
+  // Fallback: use a temporary textarea + execCommand
+  const textarea = document.createElement("textarea");
+  textarea.value = textToCopy;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.setSelectionRange(0, textToCopy.length);
+  try {
+    const successful = document.execCommand("copy");
+    if (successful) {
+      showSuccess();
+    } else {
+      console.error("Failed to copy: execCommand returned false");
+    }
   } catch (err) {
     console.error("Failed to copy:", err);
+  } finally {
+    document.body.removeChild(textarea);
   }
 };
 
