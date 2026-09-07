@@ -34,5 +34,3 @@ const githubUrl = "https://github.com/unicornops/drive-cost";
     </div>
   </footer>
 </template>
-
-<style scoped></style>
