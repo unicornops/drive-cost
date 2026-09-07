@@ -33,9 +33,9 @@ const KWH_PER_GALLON_EQUIVALENT = 33.7; // EPA standard for MPGe
 
 // Calculate diesel/petrol cost
 const dieselCost = computed(() => {
-  const dist = parseFloat(distance.value);
-  const fuelEfficiency = parseFloat(mpg.value);
-  const pricePerLitre = parseFloat(costPerLitre.value);
+  const dist = Number.parseFloat(distance.value);
+  const fuelEfficiency = Number.parseFloat(mpg.value);
+  const pricePerLitre = Number.parseFloat(costPerLitre.value);
 
   if (
     !dist ||
@@ -76,7 +76,7 @@ const dieselCost = computed(() => {
   const fuelCost = litresNeeded * pricePerLitre;
 
   // Add per-distance tax
-  const taxPerDistance = parseFloat(dieselTaxPerDistance.value) || 0;
+  const taxPerDistance = Number.parseFloat(dieselTaxPerDistance.value) || 0;
   const taxCost = dist * taxPerDistance;
 
   return fuelCost + taxCost;
@@ -84,9 +84,9 @@ const dieselCost = computed(() => {
 
 // Calculate electric cost
 const electricCost = computed(() => {
-  const dist = parseFloat(distance.value);
-  const efficiency = parseFloat(kwhPer100km.value);
-  const pricePerKwh = parseFloat(costPerKwh.value);
+  const dist = Number.parseFloat(distance.value);
+  const efficiency = Number.parseFloat(kwhPer100km.value);
+  const pricePerKwh = Number.parseFloat(costPerKwh.value);
 
   if (
     !dist ||
@@ -125,7 +125,7 @@ const electricCost = computed(() => {
   const electricityCost = kwhNeeded * pricePerKwh;
 
   // Add per-distance tax
-  const taxPerDistance = parseFloat(electricTaxPerDistance.value) || 0;
+  const taxPerDistance = Number.parseFloat(electricTaxPerDistance.value) || 0;
   const taxCost = dist * taxPerDistance;
 
   return electricityCost + taxCost;
