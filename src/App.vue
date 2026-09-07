@@ -191,12 +191,14 @@ const savingsPercentage = computed(() => {
         <!-- Distance Input -->
         <div class="mb-6 sm:mb-12 max-w-lg mx-auto">
           <label
+            for="distance"
             class="block text-xs sm:text-sm font-bold text-cyan-400 mb-2 sm:mb-3 uppercase tracking-wider"
           >
             Journey Distance
           </label>
           <div class="flex gap-2 sm:gap-3">
             <input
+              id="distance"
               v-model="distance"
               type="number"
               step="0.1"
@@ -205,7 +207,9 @@ const savingsPercentage = computed(() => {
               placeholder="100"
             />
             <select
+              id="distance-unit"
               v-model="distanceUnit"
+              aria-label="Distance unit"
               class="px-3 sm:px-6 py-3 sm:py-4 bg-gray-800/50 border-2 border-purple-500/50 rounded-xl focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all text-white text-base sm:text-lg font-medium cursor-pointer"
             >
               <option value="miles">Miles</option>
@@ -279,6 +283,7 @@ const savingsPercentage = computed(() => {
 
                 <div>
                   <label
+                    for="mpg"
                     class="block text-xs font-bold text-orange-300 mb-2 uppercase tracking-wider"
                   >
                     {{
@@ -288,6 +293,7 @@ const savingsPercentage = computed(() => {
                     }}
                   </label>
                   <input
+                    id="mpg"
                     v-model="mpg"
                     type="number"
                     step="0.1"
@@ -299,11 +305,13 @@ const savingsPercentage = computed(() => {
 
                 <div>
                   <label
+                    for="cost-per-litre"
                     class="block text-xs font-bold text-orange-300 mb-2 uppercase tracking-wider"
                   >
                     Cost per Litre
                   </label>
                   <input
+                    id="cost-per-litre"
                     v-model="costPerLitre"
                     type="number"
                     step="0.01"
@@ -315,12 +323,14 @@ const savingsPercentage = computed(() => {
 
                 <div>
                   <label
+                    for="diesel-tax-per-distance"
                     class="block text-xs font-bold text-orange-300 mb-2 uppercase tracking-wider"
                   >
                     Tax per
                     {{ distanceUnit === "miles" ? "Mile" : "KM" }} (Optional)
                   </label>
                   <input
+                    id="diesel-tax-per-distance"
                     v-model="dieselTaxPerDistance"
                     type="number"
                     step="0.01"
@@ -461,6 +471,7 @@ const savingsPercentage = computed(() => {
 
                 <div>
                   <label
+                    for="kwh-per-100km"
                     class="block text-xs font-bold text-cyan-300 mb-2 uppercase tracking-wider"
                   >
                     {{
@@ -470,6 +481,7 @@ const savingsPercentage = computed(() => {
                     }}
                   </label>
                   <input
+                    id="kwh-per-100km"
                     v-model="kwhPer100km"
                     type="number"
                     step="0.1"
@@ -483,11 +495,13 @@ const savingsPercentage = computed(() => {
 
                 <div>
                   <label
+                    for="cost-per-kwh"
                     class="block text-xs font-bold text-cyan-300 mb-2 uppercase tracking-wider"
                   >
                     Cost per kWh
                   </label>
                   <input
+                    id="cost-per-kwh"
                     v-model="costPerKwh"
                     type="number"
                     step="0.01"
@@ -499,12 +513,14 @@ const savingsPercentage = computed(() => {
 
                 <div>
                   <label
+                    for="electric-tax-per-distance"
                     class="block text-xs font-bold text-cyan-300 mb-2 uppercase tracking-wider"
                   >
                     Tax per
                     {{ distanceUnit === "miles" ? "Mile" : "KM" }} (Optional)
                   </label>
                   <input
+                    id="electric-tax-per-distance"
                     v-model="electricTaxPerDistance"
                     type="number"
                     step="0.01"
