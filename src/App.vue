@@ -250,10 +250,10 @@ const savingsPercentage = computed(() => {
               </div>
 
               <div class="space-y-3 sm:space-y-5">
-                <div>
-                  <label
+                <div role="group" aria-label="Fuel Efficiency Metric">
+                  <span
                     class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
-                    >Fuel Efficiency Metric</label
+                    >Fuel Efficiency Metric</span
                   >
                   <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
@@ -340,10 +340,10 @@ const savingsPercentage = computed(() => {
                   />
                 </div>
 
-                <div v-if="fuelMetricType === 'MPG'">
-                  <label
+                <div v-if="fuelMetricType === 'MPG'" role="group" aria-label="Gallon Type">
+                  <span
                     class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
-                    >Gallon Type</label
+                    >Gallon Type</span
                   >
                   <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
@@ -438,10 +438,10 @@ const savingsPercentage = computed(() => {
               </div>
 
               <div class="space-y-3 sm:space-y-5">
-                <div>
-                  <label
+                <div role="group" aria-label="Efficiency Metric">
+                  <span
                     class="block text-xs font-bold text-cyan-300 mb-2 sm:mb-3 uppercase tracking-wider"
-                    >Efficiency Metric</label
+                    >Efficiency Metric</span
                   >
                   <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
