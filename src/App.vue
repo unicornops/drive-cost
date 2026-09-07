@@ -250,10 +250,10 @@ const savingsPercentage = computed(() => {
               </div>
 
               <div class="space-y-3 sm:space-y-5">
-                <div role="group" aria-label="Fuel Efficiency Metric">
-                  <span
+                <fieldset class="border-0 p-0 m-0">
+                  <legend
                     class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
-                    >Fuel Efficiency Metric</span
+                    >Fuel Efficiency Metric</legend
                   >
                   <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
@@ -279,7 +279,7 @@ const savingsPercentage = computed(() => {
                       L/100km
                     </button>
                   </div>
-                </div>
+                </fieldset>
 
                 <div>
                   <label
@@ -340,10 +340,10 @@ const savingsPercentage = computed(() => {
                   />
                 </div>
 
-                <div v-if="fuelMetricType === 'MPG'" role="group" aria-label="Gallon Type">
-                  <span
+                <fieldset v-if="fuelMetricType === 'MPG'" class="border-0 p-0 m-0">
+                  <legend
                     class="block text-xs font-bold text-orange-300 mb-2 sm:mb-3 uppercase tracking-wider"
-                    >Gallon Type</span
+                    >Gallon Type</legend
                   >
                   <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
@@ -369,7 +369,7 @@ const savingsPercentage = computed(() => {
                       US
                     </button>
                   </div>
-                </div>
+                </fieldset>
               </div>
 
               <!-- Diesel Cost Display -->
@@ -438,10 +438,10 @@ const savingsPercentage = computed(() => {
               </div>
 
               <div class="space-y-3 sm:space-y-5">
-                <div role="group" aria-label="Efficiency Metric">
-                  <span
+                <fieldset class="border-0 p-0 m-0">
+                  <legend
                     class="block text-xs font-bold text-cyan-300 mb-2 sm:mb-3 uppercase tracking-wider"
-                    >Efficiency Metric</span
+                    >Efficiency Metric</legend
                   >
                   <div class="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
@@ -467,7 +467,7 @@ const savingsPercentage = computed(() => {
                       MPGe
                     </button>
                   </div>
-                </div>
+                </fieldset>
 
                 <div>
                   <label
