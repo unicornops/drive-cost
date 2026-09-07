@@ -31,9 +31,15 @@ if (typeof window !== "undefined" && !window.ResizeObserver) {
     constructor(callback) {
       this._cb = callback;
     }
-    observe() {}
-    unobserve() {}
-    disconnect() {}
+    observe() {
+      // No-op: shim does not track element size changes in jsdom
+    }
+    unobserve() {
+      // No-op: shim does not track element size changes in jsdom
+    }
+    disconnect() {
+      // No-op: shim does not track element size changes in jsdom
+    }
   }
   // @ts-ignore
   window.ResizeObserver = ResizeObserver;
