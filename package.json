@@ -20,7 +20,7 @@
     "vue": "^3.5.41"
   },
   "devDependencies": {
-    "npm-check-updates": "^19.6.5",
+    "npm-check-updates": "^23.1.0",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
