@@ -27,7 +27,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/coverage-v8": "^5.0.0",
     "@vue/test-utils": "^2.4.10",
-    "autoprefixer": "^10.5.5",
+    "autoprefixer": "^10.6.1",
     "jsdom": "^30.0.1",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.3.3",
