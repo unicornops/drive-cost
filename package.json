@@ -17,7 +17,7 @@
     "test:ci": "npm run test && npm run test:e2e"
   },
   "dependencies": {
-    "vue": "^3.5.41"
+    "vue": "^3.5.42"
   },
   "devDependencies": {
     "npm-check-updates": "^23.1.0",
