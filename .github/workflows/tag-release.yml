@@ -27,16 +27,17 @@ jobs:
         continue-on-error: true
       - name: Get next version
         id: next_version
-        # Decide from the dry-run exit status instead of its stdout:
-        # recent cocogitto versions print "Pre-Hooks and Post-Hooks have
-        # been skipped." on stdout, which broke the GITHUB_ENV write.
+        # cocogitto 6.4 exits 0 and prints informational lines on stdout
+        # ("No conventional commits...", "Pre-Hooks and Post-Hooks have
+        # been skipped.") even when no bump is needed, so only a bare
+        # version line means a bump is required.
         run: |
-          if cog bump --auto --dry-run >/dev/null 2>&1; then
-            echo "Version bump needed"
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          else
+          NEXT_VERSION=$(cog bump --auto --dry-run 2>/dev/null | grep -E "^v?[0-9]+\.[0-9]+\.[0-9]+$" | tail -n1) || true
+          if [ -z "$NEXT_VERSION" ]; then
             echo "No version bump needed, skipping release"
             echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Version bump needed: $NEXT_VERSION"
           fi
       - name: Cocogitto tag
         id: release
