@@ -24,7 +24,7 @@
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
-    "@vitejs/plugin-vue": "^6.0.9",
+    "@vitejs/plugin-vue": "^6.0.10",
     "@vitest/coverage-v8": "^5.0.4",
     "@vue/test-utils": "^2.5.1",
     "autoprefixer": "^10.6.1",
