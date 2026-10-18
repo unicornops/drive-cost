@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "npm-check-updates": "^23.1.0",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
     "@vitejs/plugin-vue": "^6.0.9",
